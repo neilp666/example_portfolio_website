@@ -39,6 +39,13 @@ class PortfoliosController < ApplicationController
     end
   end
 
+  def destroy
+    @portfolio_item.destroy
+    respond_to do |format|
+      format.html { redirect_to portfolio_url, notice: 'Portfolio was removed.' }
+    end
+  end
+
   private
 
   def set_portfolio
@@ -46,6 +53,6 @@ class PortfoliosController < ApplicationController
   end
 
   def portfolio_params
-      params.require(:portfolio).permit(:title, :subtitle, :body)
+    params.require(:portfolio).permit(:title, :subtitle, :body)
   end
 end
