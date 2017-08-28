@@ -1,13 +1,17 @@
 class PortfoliosController < ApplicationController
   before_action :set_portfolio, only: [:show, :edit, :update, :destroy]
 
-
   def index
     @portfolio_items = Portfolio.all
   end
 
+  def angular
+    @angular_portfolio_items = Portfolio.angular
+  end
+
   def new
     @portfolio_item = Portfolio.new
+    3.times { @portfolio_item.technologies.build }
   end
 
   def show
@@ -18,7 +22,8 @@ class PortfoliosController < ApplicationController
 
 
   def create
-    @portfolio_item = Portfolio.new(portfolio_params)
+    @portfolio_item = Portfolio.new(portfolio_params), technologies_attributes: [name:]
+    @portfolio_item = Portfolio.find(params[:id])
 
     respond_to do |format|
       if @portfolio_item.save
